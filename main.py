@@ -7,6 +7,7 @@ Thumbs up gesture toggles control on/off.
 import cv2
 import time
 import numpy as np
+import os
 
 try:
     from handTrackingModule import handDetector
@@ -53,12 +54,23 @@ def is_thumbs_up(lmlist):
     return thumb_up and fingers_closed >= 3
 
 
+def _get_camera_source():
+    """Read CAMERA_SOURCE env: int index (e.g., "0") or a file path."""
+    src = os.getenv("CAMERA_SOURCE", "0").strip()
+    try:
+        return int(src)
+    except ValueError:
+        return src
+
+
 def main():
     """Main application loop."""
     print("Starting Gesture Volume Control...")
     
-    cap = cv2.VideoCapture(0)
+    cam_src = _get_camera_source()
+    cap = cv2.VideoCapture(cam_src)
     if not cap.isOpened():
+        # Fallback to another index for multi-camera setups
         cap = cv2.VideoCapture(1)
         if not cap.isOpened():
             print("ERROR: No camera found.")
@@ -80,6 +92,8 @@ def main():
     print("  ✋ Open hand = 100% volume")
     print("  Q = Quit")
     
+    headless = os.getenv("HEADLESS", "0") == "1"
+
     while True:
         success, img = cap.read()
         if not success:
@@ -121,13 +135,19 @@ def main():
                 cv2.putText(img, 'Thumbs up to enable', (30, 100), 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
         
-        cv2.imshow('Gesture Volume Control', img)
+        if not headless:
+            cv2.imshow('Gesture Volume Control', img)
         
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        if not headless:
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+        else:
+            # Headless: small sleep to avoid busy loop
+            time.sleep(0.01)
     
     cap.release()
-    cv2.destroyAllWindows()
+    if not headless:
+        cv2.destroyAllWindows()
     print("Stopped.")
 
 

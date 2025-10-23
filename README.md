@@ -165,3 +165,19 @@ Created by [JaKuba23]
 ---
 
 **⭐ If you find this project useful, please give it a star!**
+
+---
+
+### Start command (for deployment forms)
+
+If a platform asks for the start/run command, use:
+
+```
+python3 main.py
+```
+
+If you are using a local virtual environment created at `./venv`, use:
+
+```
+./venv/bin/python main.py
+```
