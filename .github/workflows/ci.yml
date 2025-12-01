@@ -62,9 +62,7 @@ jobs:
           pip install mypy types-setuptools
       
       - name: Type check with mypy
-        run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)/src
-          mypy src/motus --strict
+        run: mypy src/motus --strict
 
   test:
     name: Test Suite
@@ -98,7 +96,6 @@ jobs:
       
       - name: Run tests with coverage
         run: |
-          export PYTHONPATH=$PYTHONPATH:$(pwd)/src
           pytest --cov=motus --cov-report=xml --cov-report=term-missing -v
       
       - name: Upload coverage to Codecov
