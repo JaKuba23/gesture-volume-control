@@ -7,11 +7,13 @@ __pycache__/
 *.egg-info/
 dist/
 build/
+*.egg
 
 # Virtual Environment
 venv/
 env/
 ENV/
+.venv/
 
 # IDE
 .vscode/
@@ -19,16 +21,32 @@ ENV/
 *.swp
 *.swo
 *~
-
-# macOS
 .DS_Store
-.AppleDouble
-.LSOverride
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
+.tox/
+.hypothesis/
+*.cover
+coverage.xml
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
 
 # Logs
 *.log
+
+# Security
+bandit-report.json
+
+# OS
+.AppleDouble
+.LSOverride
+.DS_Store
+
+# Distribution
+*.spec

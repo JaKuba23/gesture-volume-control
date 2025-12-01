@@ -1,24 +1,24 @@
 # syntax=docker/dockerfile:1
 
-# Comments are provided throughout this file to help you get started.
-# If you need more help, visit the Dockerfile reference guide at
-# https://docs.docker.com/go/dockerfile-reference/
-
-# Want to help us make this template better? Share your feedback here: https://forms.gle/ybq9Krt8jtBL3iCk7
-
-ARG PYTHON_VERSION=3.12.6
+ARG PYTHON_VERSION=3.12.1
 FROM python:${PYTHON_VERSION}-slim as base
 
-# Prevents Python from writing pyc files.
+# Metadata
+LABEL org.opencontainers.image.title="Motus"
+LABEL org.opencontainers.image.description="Gesture-based volume control for macOS"
+LABEL org.opencontainers.image.authors="JaKuba23"
+LABEL org.opencontainers.image.source="https://github.com/JaKuba23/motus"
+LABEL org.opencontainers.image.licenses="MIT"
+
+# Prevents Python from writing pyc files
 ENV PYTHONDONTWRITEBYTECODE=1
 
-# Keeps Python from buffering stdout and stderr to avoid situations where
-# the application crashes without emitting any logs due to buffering.
+# Keeps Python from buffering stdout and stderr
 ENV PYTHONUNBUFFERED=1
 
 # Default to headless mode in container
-ENV HEADLESS=1 \
-    CAMERA_SOURCE=0
+ENV HEADLESS=1
+ENV CAMERA_SOURCE=0
 
 WORKDIR /app
 
@@ -29,10 +29,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libsm6 \
     libxrender1 \
     libxext6 \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
-# Create a non-privileged user that the app will run under.
-# See https://docs.docker.com/go/dockerfile-user-best-practices/
+# Create non-privileged user
 ARG UID=10001
 RUN adduser \
     --disabled-password \
@@ -43,20 +43,25 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
-# Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
-# Leverage a bind mount to requirements.txt to avoid having to copy them into
-# into this layer.
-# Install dependencies; copy requirements for better caching
-COPY requirements.txt requirements.txt
+# Install Python dependencies
+COPY requirements.txt .
 RUN --mount=type=cache,target=/root/.cache/pip \
-    python -m pip install --upgrade pip && python -m pip install -r requirements.txt
+    python -m pip install --upgrade pip && \
+    python -m pip install -r requirements.txt
 
-# Switch to the non-privileged user to run the application.
+# Copy application source
+COPY src/ src/
+COPY LICENSE README.md ./
+
+# Add src to PYTHONPATH
+ENV PYTHONPATH=/app/src:$PYTHONPATH
+
+# Switch to non-privileged user
 USER appuser
 
-# Copy the source code into the container.
-COPY . .
+# Health check
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD python -c "from motus import __version__; print(__version__)" || exit 1
 
-# Run the application
-CMD ["python", "-u", "main.py"]
+# Run application
+CMD ["python", "-m", "motus"]
