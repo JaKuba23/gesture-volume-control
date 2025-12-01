@@ -1,7 +1,5 @@
 """Unit tests for gestures module."""
 
-import pytest
-
 from motus.gestures import (
     count_open_fingers,
     is_fist,

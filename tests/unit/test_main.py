@@ -1,10 +1,7 @@
 """Unit tests for main module."""
 
-import os
 from unittest.mock import Mock, patch
 
-import cv2
-import numpy as np
 import pytest
 
 from motus.config import AppConfig

@@ -1,10 +1,8 @@
 """Unit tests for hand_tracking module."""
 
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, patch
 
-import cv2
 import numpy as np
-import pytest
 
 from motus.hand_tracking import HandDetector
 

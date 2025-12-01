@@ -64,7 +64,7 @@ def set_volume(percent: int) -> None:
     percent = max(0, min(100, int(percent)))
 
     try:
-        result = subprocess.run(
+        subprocess.run(
             ["osascript", "-e", f"set volume output volume {percent}"],
             capture_output=True,
             check=True,

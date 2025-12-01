@@ -2,7 +2,6 @@
 
 from unittest.mock import Mock, patch
 
-import cv2
 import numpy as np
 import pytest
 
@@ -57,6 +56,7 @@ class TestEndToEndWorkflow:
         mock_video_capture.return_value = mock_cap
 
         config = AppConfig(headless=True)
+        assert config.headless is True
 
         # Import main to test (avoiding actual execution)
         from motus.main import initialize_camera

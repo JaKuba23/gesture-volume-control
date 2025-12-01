@@ -1,16 +1,11 @@
 """Unit tests for mac_controls module."""
 
 import subprocess
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import pytest
 
-from motus.mac_controls import (
-    UnsupportedPlatformError,
-    VolumeControlError,
-    get_volume,
-    set_volume,
-)
+from motus.mac_controls import VolumeControlError, get_volume, set_volume
 
 
 class TestSetVolume:

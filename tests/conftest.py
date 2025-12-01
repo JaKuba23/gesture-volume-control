@@ -2,7 +2,7 @@
 Pytest configuration and shared fixtures.
 """
 
-from typing import Any, Dict, List
+from typing import List
 from unittest.mock import MagicMock, Mock
 
 import cv2

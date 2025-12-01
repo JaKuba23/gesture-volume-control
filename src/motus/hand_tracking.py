@@ -4,7 +4,7 @@ Hand Tracking Module using MediaPipe.
 Detects hand landmarks in real-time using webcam feed with MediaPipe Hands.
 """
 
-from typing import List, Optional, Tuple
+from typing import List, Optional
 
 import cv2 as cv
 import mediapipe as mp
