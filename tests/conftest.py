@@ -5,14 +5,15 @@ Pytest configuration and shared fixtures.
 from typing import List
 from unittest.mock import MagicMock, Mock
 
-import cv2
-import numpy as np
 import pytest
 
 
 @pytest.fixture
 def mock_camera() -> Mock:
     """Mock cv2.VideoCapture for testing."""
+    import cv2
+    import numpy as np
+
     mock = Mock(spec=cv2.VideoCapture)
     mock.isOpened.return_value = True
     mock.read.return_value = (True, np.zeros((480, 640, 3), dtype=np.uint8))
@@ -116,8 +117,10 @@ def mock_mediapipe_hands() -> MagicMock:
 
 
 @pytest.fixture
-def sample_frame() -> np.ndarray:
+def sample_frame():
     """Create a sample video frame for testing."""
+    import numpy as np
+
     return np.zeros((480, 640, 3), dtype=np.uint8)
 
 

@@ -2,7 +2,6 @@
 
 from unittest.mock import Mock, patch
 
-import numpy as np
 import pytest
 
 from motus.config import AppConfig
@@ -66,6 +65,8 @@ class TestEndToEndWorkflow:
 
     def test_smoothing_reduces_jitter(self):
         """Test that volume smoothing reduces jitter."""
+        import numpy as np
+
         # Simulate jittery finger counts
         jittery_values = [3, 5, 3, 4, 3, 5, 4]
         window_size = 5
