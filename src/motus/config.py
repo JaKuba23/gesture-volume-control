@@ -11,7 +11,7 @@ from typing import Union
 @dataclass(frozen=True)
 class AppConfig:
     """Application configuration with sensible defaults.
-    
+
     Attributes:
         smoothing_window: Number of frames to average for volume smoothing.
         toggle_cooldown: Minimum seconds between toggle gestures.
@@ -22,7 +22,7 @@ class AppConfig:
         headless: If True, disables GUI windows (for Docker/CI).
         target_fps: Target frames per second for processing.
     """
-    
+
     smoothing_window: int = 5
     toggle_cooldown: float = 1.0
     min_detection_confidence: float = 0.7
@@ -31,7 +31,7 @@ class AppConfig:
     camera_source: Union[int, str] = 0
     headless: bool = False
     target_fps: int = 30
-    
+
     def __post_init__(self) -> None:
         """Validate configuration values."""
         if self.smoothing_window < 1:
@@ -49,4 +49,3 @@ class AppConfig:
 
 
 DEFAULT_CONFIG = AppConfig()
-

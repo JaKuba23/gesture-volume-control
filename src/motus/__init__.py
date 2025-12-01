@@ -12,4 +12,3 @@ from motus.hand_tracking import HandDetector
 from motus.mac_controls import set_volume
 
 __all__ = ["HandDetector", "set_volume", "__version__"]
-
