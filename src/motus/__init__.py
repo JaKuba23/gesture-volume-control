@@ -11,7 +11,7 @@ __author__ = "JaKuba23"
 __all__ = ["__version__", "__author__"]
 
 
-def __getattr__(name: str):
+def __getattr__(name: str) -> Any:
     """Lazy import for HandDetector and set_volume.
 
     This enables lazy loading of heavy dependencies (MediaPipe, OpenCV)

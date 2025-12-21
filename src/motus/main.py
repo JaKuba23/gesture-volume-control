@@ -9,7 +9,7 @@ import logging
 import os
 import time
 from collections import deque
-from typing import Deque, List, Tuple, Union
+from typing import Any, Deque, List, Tuple, Union, cast
 
 import cv2 as cv
 import numpy as np
@@ -277,10 +277,13 @@ def main() -> None:
                 logger.warning("Failed to read frame")
                 break
 
+            # Cast frame to cv.Mat for type checking
+            frame_mat = cast(cv.Mat, frame)
+
             # Process frame
             control_enabled, last_toggle_time, history = process_frame(
                 detector,
-                frame,
+                frame_mat,
                 history,
                 config,
                 control_enabled,
@@ -290,13 +293,13 @@ def main() -> None:
             # Draw UI if not in headless mode
             if not config.headless:
                 fingers = (
-                    count_open_fingers(detector.find_positions(frame))
-                    if detector.find_positions(frame)
+                    count_open_fingers(detector.find_positions(frame_mat))
+                    if detector.find_positions(frame_mat)
                     else 0
                 )
                 current_volume = int(sum(history) / len(history)) if history else 0
-                draw_ui(frame, control_enabled, current_volume, fingers)
-                cv.imshow("Motus - Gesture Volume Control", frame)
+                draw_ui(frame_mat, control_enabled, current_volume, fingers)
+                cv.imshow("Motus - Gesture Volume Control", frame_mat)
 
                 # Check for quit key
                 if cv.waitKey(1) & 0xFF == ord("q"):
