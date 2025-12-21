@@ -29,6 +29,7 @@ def _to_deque(history: Union[List[int], Deque[int]], maxlen: int) -> Deque[int]:
         result = deque(history, maxlen=maxlen)
     return result
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -312,4 +313,3 @@ def main() -> None:
         if not config.headless:
             cv.destroyAllWindows()
         logger.info("Application stopped")
-
