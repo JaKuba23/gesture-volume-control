@@ -30,6 +30,9 @@ class TestEndToEndWorkflow:
 
         detector.hands = Mock()
         detector.hands.process.return_value.multi_hand_landmarks = [mock_hand]
+        # find_hands(draw=True) calls mediapipe's real drawing_utils on the
+        # landmark object; mock it too so it isn't fed a bare Mock.
+        detector.mpDraw = Mock()
 
         # Process frame
         result_frame = detector.find_hands(sample_frame, draw=True)
@@ -42,7 +45,7 @@ class TestEndToEndWorkflow:
         finger_count = count_open_fingers(positions)
         assert 0 <= finger_count <= 5
 
-    @patch("motus.main.cv2.VideoCapture")
+    @patch("motus.main.cv.VideoCapture")
     @patch("motus.main.set_volume")
     def test_volume_control_workflow(
         self, mock_set_volume, mock_video_capture, sample_frame

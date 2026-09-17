@@ -32,7 +32,7 @@ def mock_hand_landmarks() -> List[List[int]]:
         [1, 240, 230],
         [2, 230, 210],
         [3, 220, 190],
-        [4, 210, 170],  # Thumb
+        [4, 230, 170],  # Thumb (extended: tip.x > joint(3).x)
         [5, 260, 220],
         [6, 270, 180],
         [7, 275, 140],
@@ -60,7 +60,7 @@ def mock_fist_landmarks() -> List[List[int]]:
         [1, 240, 240],
         [2, 235, 235],
         [3, 230, 230],
-        [4, 225, 225],  # Thumb closed
+        [4, 225, 255],  # Thumb closed (tip.y >= wrist(0).y, i.e. not "up")
         [5, 260, 240],
         [6, 265, 245],
         [7, 267, 250],

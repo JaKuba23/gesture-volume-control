@@ -9,12 +9,11 @@ import logging
 import os
 import time
 from collections import deque
-from typing import Any, Deque, List, Tuple, Union, cast
+from typing import Deque, List, Tuple, Union, cast
 
 import cv2 as cv
-import numpy as np
 
-from motus.config import DEFAULT_CONFIG, AppConfig
+from motus.config import AppConfig
 from motus.gestures import count_open_fingers, is_thumbs_up
 from motus.hand_tracking import HandDetector
 from motus.mac_controls import set_volume

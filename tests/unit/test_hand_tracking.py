@@ -57,6 +57,9 @@ class TestFindHands:
         mock_landmark = MagicMock()
         detector.hands = MagicMock()
         detector.hands.process.return_value.multi_hand_landmarks = [mock_landmark]
+        # find_hands(draw=True) calls mediapipe's real drawing_utils on the
+        # landmark object; mock it too so it isn't fed a bare MagicMock.
+        detector.mpDraw = MagicMock()
 
         result = detector.find_hands(sample_frame, draw=True)
         assert result is not None

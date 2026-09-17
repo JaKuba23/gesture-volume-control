@@ -133,7 +133,9 @@ class TestProcessFrame:
         mock_detector.find_hands.return_value = sample_frame
         mock_detector.find_positions.return_value = mock_hand_landmarks
 
-        config = AppConfig()
+        # smoothing_window=1 so a single frame is enough to trigger set_volume;
+        # the default (5) needs 5 frames of history before it fires.
+        config = AppConfig(smoothing_window=1)
         enabled, last_time, history = process_frame(
             mock_detector, sample_frame, [], config, True, 0.0
         )
