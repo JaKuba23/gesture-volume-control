@@ -28,7 +28,7 @@ classifiers = [
 ]
 dependencies = [
     "opencv-python==4.8.1.78",
-    "mediapipe==0.10.13",
+    "mediapipe==1.0.1",
     "numpy==1.26.4",
 ]
 
