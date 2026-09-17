@@ -2,10 +2,6 @@
 
 Thank you for your interest in contributing to Motus. This document provides guidelines and instructions for contributing to this project.
 
-## Code of Conduct
-
-By participating in this project, you agree to maintain a professional and respectful environment for all contributors.
-
 ## Development Setup
 
 ### Prerequisites
@@ -37,6 +33,7 @@ source venv/bin/activate  # On macOS/Linux
 pip install --upgrade pip
 pip install -r requirements.txt
 pip install -r requirements-dev.txt
+pip install -e .
 ```
 
 4. **Install pre-commit hooks:**
@@ -295,10 +292,8 @@ src/motus/
 
 ## Performance Considerations
 
-- Target: 30+ FPS on M1 Macs
 - Minimize camera processing overhead
 - Use efficient NumPy operations
-- Profile code with `pytest-benchmark` for critical paths
 
 ## Documentation Standards
 

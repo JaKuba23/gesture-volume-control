@@ -34,11 +34,13 @@ help:
 install:
 	python3 -m pip install --upgrade pip
 	pip install -r requirements.txt
+	pip install -e .
 
 install-dev:
 	python3 -m pip install --upgrade pip
 	pip install -r requirements.txt
 	pip install -r requirements-dev.txt
+	pip install -e .
 	pre-commit install
 
 run:

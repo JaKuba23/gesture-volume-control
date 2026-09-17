@@ -43,6 +43,7 @@ source venv/bin/activate
 
 pip install --upgrade pip
 pip install -r requirements.txt
+pip install -e .
 ```
 
 ### Running
@@ -151,15 +152,15 @@ docker compose build
 docker compose up   # headless mode
 ```
 
-Camera access and system volume control are not available inside a container — Docker here is for CI/testing, not for running the app day-to-day. Run natively on macOS for actual use.
+Camera access and system volume control are not available inside a container. Docker here is for CI/testing, not for running the app day-to-day. Run natively on macOS for actual use.
 
 ## Troubleshooting
 
-**Camera won't open** — close other apps using the camera (Zoom, FaceTime), check camera permission in System Settings, restart the terminal/IDE.
+**Camera won't open**: close other apps using the camera (Zoom, FaceTime), check camera permission in System Settings, restart the terminal/IDE.
 
-**Hand not detected** — improve lighting, keep the hand fully in frame, adjust `min_detection_confidence` in `config.py`.
+**Hand not detected**: improve lighting, keep the hand fully in frame, adjust `min_detection_confidence` in `config.py`.
 
-**Performance** — close other resource-heavy apps, lower `target_fps`, or disable landmark drawing.
+**Performance**: close other resource-heavy apps, lower `target_fps`, or disable landmark drawing.
 
 ## Documentation
 
@@ -169,8 +170,8 @@ Camera access and system volume control are not available inside a container —
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT. See [LICENSE](LICENSE).
 
 ## Author
 
-**JaKuba23** — [github.com/JaKuba23](https://github.com/JaKuba23)
+**JaKuba23**: [github.com/JaKuba23](https://github.com/JaKuba23)
