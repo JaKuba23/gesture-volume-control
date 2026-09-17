@@ -29,7 +29,7 @@ classifiers = [
 dependencies = [
     "opencv-python==4.8.1.78",
     "mediapipe==0.10.13",
-    "numpy==1.26.4",
+    "numpy==2.2.6",
 ]
 
 [project.optional-dependencies]
