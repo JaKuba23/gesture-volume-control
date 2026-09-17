@@ -5,12 +5,12 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "motus"
 version = "1.0.0"
-description = "Professional gesture-based volume control for macOS using MediaPipe hand tracking"
+description = "Gesture-based volume control for macOS using MediaPipe hand tracking"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
-    {name = "JaKuba23", email = "jakuba23@example.com"}
+    {name = "JaKuba23"}
 ]
 keywords = ["gesture-control", "volume-control", "hand-tracking", "mediapipe", "computer-vision", "macos"]
 classifiers = [

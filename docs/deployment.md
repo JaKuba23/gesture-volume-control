@@ -2,7 +2,7 @@
 
 ## Deployment Options
 
-Motus can be deployed in multiple configurations depending on your requirements.
+Motus runs natively on macOS, or in Docker for CI and testing.
 
 ## Native macOS Deployment (Recommended)
 
@@ -13,105 +13,10 @@ Motus can be deployed in multiple configurations depending on your requirements.
 - Webcam with permissions enabled
 - 4GB RAM minimum
 
-### Production Deployment Steps
+### Setup
 
-#### 1. System Preparation
-
-```bash
-# Update system
-sudo softwareupdate --install --all
-
-# Install Python (if not present)
-brew install python@3.12
-
-# Verify Python version
-python3 --version  # Should be 3.10+
-```
-
-#### 2. Application Installation
-
-```bash
-# Create application directory
-sudo mkdir -p /opt/motus
-cd /opt/motus
-
-# Clone repository
-git clone https://github.com/JaKuba23/gesture-volume-control.git .
-
-# Create virtual environment
-python3 -m venv venv
-source venv/bin/activate
-
-# Install production dependencies
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-#### 3. Configuration
-
-```bash
-# Set environment variables
-cat > /opt/motus/.env << EOF
-CAMERA_SOURCE=0
-HEADLESS=0
-EOF
-```
-
-#### 4. Permissions
-
-```bash
-# Grant camera permissions
-# Go to: System Settings → Privacy & Security → Camera
-# Enable for Terminal or your application launcher
-```
-
-#### 5. Launch Application
-
-```bash
-# Manual launch
-/opt/motus/venv/bin/python -m motus
-
-# Or use helper script
-chmod +x /opt/motus/run.sh
-/opt/motus/run.sh
-```
-
-### LaunchAgent (Auto-start on Login)
-
-Create `~/Library/LaunchAgents/com.jakuba23.motus.plist`:
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-    <key>Label</key>
-    <string>com.jakuba23.motus</string>
-    <key>ProgramArguments</key>
-    <array>
-        <string>/opt/motus/venv/bin/python</string>
-        <string>-m</string>
-        <string>motus</string>
-    </array>
-    <key>WorkingDirectory</key>
-    <string>/opt/motus</string>
-    <key>RunAtLoad</key>
-    <true/>
-    <key>KeepAlive</key>
-    <false/>
-    <key>StandardOutPath</key>
-    <string>/tmp/motus.log</string>
-    <key>StandardErrorPath</key>
-    <string>/tmp/motus.error.log</string>
-</dict>
-</plist>
-```
-
-Load the agent:
-
-```bash
-launchctl load ~/Library/LaunchAgents/com.jakuba23.motus.plist
-```
+Follow the [Quick Start](../README.md#quick-start) in the main README to install and run Motus. To
+launch without retyping the commands, use `./run.sh` or `make run-venv`.
 
 ## Docker Deployment
 
@@ -138,47 +43,11 @@ docker run --rm \
   motus:latest
 ```
 
-### Multi-architecture Build
-
-```bash
-# Build for multiple architectures
-docker buildx build \
-  --platform linux/amd64,linux/arm64 \
-  -t ghcr.io/jakuba23/motus:latest \
-  --push \
-  .
-```
-
-## Kubernetes Deployment (Not Recommended)
-
-Motus is not designed for Kubernetes deployment due to:
-- Hardware requirements (webcam access)
-- Desktop application nature
-- Real-time processing constraints
-
-If deploying to Kubernetes for testing:
-
-```yaml
-apiVersion: v1
-kind: Pod
-metadata:
-  name: motus-test
-spec:
-  containers:
-  - name: motus
-    image: ghcr.io/jakuba23/motus:latest
-    env:
-    - name: HEADLESS
-      value: "1"
-    - name: CAMERA_SOURCE
-      value: "/app/test-video.mp4"
-```
-
 ## CI/CD Deployment
 
 ### GitHub Actions Integration
 
-Motus includes comprehensive CI/CD:
+Motus has a CI pipeline (lint, type check, tests, Docker build):
 
 ```yaml
 # .github/workflows/ci.yml is pre-configured
@@ -224,10 +93,6 @@ make security-scan
 ### Application Logs
 
 ```bash
-# View logs (if using LaunchAgent)
-tail -f /tmp/motus.log
-tail -f /tmp/motus.error.log
-
 # Configure log level
 export LOG_LEVEL=DEBUG
 python -m motus
@@ -295,6 +160,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
+pip install -e .
 ```
 
 #### 4. Performance Issues
@@ -308,64 +174,7 @@ top -o cpu
 # Edit src/motus/config.py: target_fps = 15
 ```
 
-## Backup and Recovery
-
-### Configuration Backup
-
-```bash
-# Backup configuration
-tar -czf motus-config-backup.tar.gz \
-  /opt/motus/.env \
-  /opt/motus/src/motus/config.py
-```
-
-### Full Application Backup
-
-```bash
-# Backup entire installation
-tar -czf motus-full-backup.tar.gz \
-  --exclude='venv' \
-  --exclude='__pycache__' \
-  /opt/motus/
-```
-
-### Recovery
-
-```bash
-# Restore from backup
-cd /opt/
-tar -xzf motus-full-backup.tar.gz
-
-# Recreate virtual environment
-cd gesture-volume-control
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-## Security Hardening
-
-### File Permissions
-
-```bash
-# Set appropriate permissions
-sudo chown -R $(whoami):staff /opt/motus
-chmod 755 /opt/motus
-chmod 644 /opt/motus/src/motus/*.py
-chmod 755 /opt/motus/run.sh
-```
-
-### Network Isolation
-
-Motus does not require network access:
-
-```bash
-# Block network access (optional)
-sudo pfctl -e
-sudo pfctl -f /etc/pf.conf
-```
-
-### Dependency Verification
+## Dependency Verification
 
 ```bash
 # Verify package integrity
@@ -378,41 +187,21 @@ safety check
 bandit -r src/motus
 ```
 
-## Scaling Considerations
-
-Motus is designed for single-user deployment. For multiple users:
-
-### Option 1: Multiple Instances
-
-- Deploy separate instance per user
-- Use different camera sources
-- Isolate configurations
-
-### Option 2: Multi-user Server (Future)
-
-- Would require architectural changes
-- WebSocket for remote control
-- Centralized gesture processing
-- Not currently supported
-
 ## Support and Maintenance
 
 ### Update Procedure
 
 ```bash
 # Pull latest changes
-cd /opt/motus
 git pull origin main
 
 # Update dependencies
 source venv/bin/activate
 pip install --upgrade -r requirements.txt
+pip install -e .
 
 # Run tests
 make test
-
-# Restart application
-# (kill existing process and relaunch)
 ```
 
 ### Rollback Procedure
@@ -424,11 +213,9 @@ git checkout <commit-hash>
 
 # Reinstall dependencies
 pip install -r requirements.txt
-
-# Restart application
+pip install -e .
 ```
 
 ---
 
 For additional support, see [CONTRIBUTING.md](../CONTRIBUTING.md) or contact @JaKuba23.
-
