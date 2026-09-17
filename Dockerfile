@@ -7,7 +7,7 @@ FROM python:${PYTHON_VERSION}-slim as base
 LABEL org.opencontainers.image.title="Motus"
 LABEL org.opencontainers.image.description="Gesture-based volume control for macOS"
 LABEL org.opencontainers.image.authors="JaKuba23"
-LABEL org.opencontainers.image.source="https://github.com/JaKuba23/motus"
+LABEL org.opencontainers.image.source="https://github.com/JaKuba23/gesture-volume-control"
 LABEL org.opencontainers.image.licenses="MIT"
 
 # Prevents Python from writing pyc files
@@ -51,7 +51,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # Copy application source
 COPY src/ src/
-COPY LICENSE README.md ./
+COPY LICENSE ./
 
 # Add src to PYTHONPATH
 ENV PYTHONPATH=/app/src:$PYTHONPATH
