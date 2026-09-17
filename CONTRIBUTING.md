@@ -20,8 +20,8 @@ By participating in this project, you agree to maintain a professional and respe
 1. **Clone the repository:**
 
 ```bash
-git clone https://github.com/JaKuba23/motus.git
-cd motus
+git clone https://github.com/JaKuba23/gesture-volume-control.git
+cd gesture-volume-control
 ```
 
 2. **Create and activate virtual environment:**

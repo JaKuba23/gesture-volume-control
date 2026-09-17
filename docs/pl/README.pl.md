@@ -9,11 +9,11 @@
  ╚═╝     ╚═╝ ╚═════╝    ╚═╝    ╚═════╝ ╚══════╝
 ```
 
-**Profesjonalny system sterowania głośnością gestami dla macOS wykorzystujący uczenie maszynowe**
+**Bezdotykowe sterowanie głośnością macOS gestami dłoni, zbudowane z MediaPipe i OpenCV.**
 
 [English Documentation](../../README.md)
 
-[![CI Status](https://github.com/JaKuba23/motus/workflows/CI/badge.svg)](https://github.com/JaKuba23/motus/actions)
+[![CI Status](https://github.com/JaKuba23/gesture-volume-control/workflows/CI/badge.svg)](https://github.com/JaKuba23/gesture-volume-control/actions)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
@@ -21,7 +21,7 @@
 
 ## Przegląd
 
-Motus to aplikacja produkcyjna umożliwiająca bezdotykowe sterowanie głośnością systemową poprzez intuicyjne gesty dłoni. Zbudowana z wykorzystaniem śledzenia dłoni MediaPipe oraz wizji komputerowej OpenCV, demonstruje zaawansowaną integrację uczenia maszynowego dla interakcji człowiek-komputer na platformie macOS.
+Motus odczytuje punkty orientacyjne dłoni z obrazu kamery za pomocą MediaPipe Hands i mapuje gesty (liczbę wyprostowanych palców) na głośność systemową macOS. To osobisty projekt służący do pracy z wizją komputerową i rozpoznawaniem gestów w czasie rzeczywistym, nie produkt komercyjny.
 
 ## Kluczowe Funkcje
 
@@ -30,9 +30,9 @@ Motus to aplikacja produkcyjna umożliwiająca bezdotykowe sterowanie głośnoś
 - System aktywacji poprzez gest kciuka w górę
 - Adaptacyjny algorytm wygładzania dla redukcji drgań
 - Zoptymalizowane dla procesorów Apple Silicon (M1/M2)
-- Kompleksowy zestaw testów z pokryciem kodu 80%+
-- Wsparcie Docker dla rozwoju wieloplatformowego
-- Implementacja type-safe z pełną zgodnością mypy strict
+- Zestaw testów jednostkowych i integracyjnych (pytest)
+- Obraz Docker do użycia w CI/headless
+- Adnotacje typów sprawdzane przez mypy
 
 ## Szybki Start
 
@@ -47,8 +47,8 @@ Motus to aplikacja produkcyjna umożliwiająca bezdotykowe sterowanie głośnoś
 
 ```bash
 # Sklonuj repozytorium
-git clone https://github.com/JaKuba23/motus.git
-cd motus
+git clone https://github.com/JaKuba23/gesture-volume-control.git
+cd gesture-volume-control
 
 # Utwórz wirtualne środowisko
 python3 -m venv venv
@@ -225,18 +225,6 @@ Deployment Docker na macOS ma ograniczenia:
 
 Do użytku produkcyjnego na macOS uruchamiaj natywnie poza Dockerem.
 
-## Wydajność
-
-Benchmarki na Apple M1 MacBook Pro (16GB RAM):
-
-| Metryka | Wartość |
-|---------|---------|
-| Częstotliwość Klatek | 30-60 FPS |
-| Użycie CPU | 8-15% (jeden rdzeń) |
-| Użycie Pamięci | ~250MB |
-| Opóźnienie Detekcji | <33ms (30 FPS) |
-| Czas Reakcji Gestu | 100-200ms |
-
 ## Rozwiązywanie Problemów
 
 ### Kamera Się Nie Otwiera
@@ -278,7 +266,6 @@ Nie otwieraj publicznych issues dla kwestii bezpieczeństwa.
 ## Dokumentacja
 
 - [Dokumentacja Architektury](../architecture.md)
-- [Referencja API](../api.md)
 - [Przewodnik Deploymentu](../deployment.md)
 - [Angielska Dokumentacja](../../README.md)
 
@@ -301,27 +288,4 @@ Ten projekt jest licencjonowany na licencji MIT - zobacz plik [LICENSE](../../LI
 **Stworzony przez JaKuba23**
 
 - GitHub: [@JaKuba23](https://github.com/JaKuba23)
-- Portfolio: [jakuba23.dev](https://jakuba23.dev)
-
----
-
-**Profesjonalny Projekt Portfolio AI/ML**
-
-Demonstruje: Wizję Komputerową | Uczenie Maszynowe | Przetwarzanie w Czasie Rzeczywistym | Integrację Systemową | Profesjonalną Inżynierię Oprogramowania
-
----
-
-## Status Projektu
-
-**Gotowy do Produkcji** - Pełne testy, dokumentacja i możliwość wdrożenia
-
-- Pipeline CI/CD z GitHub Actions
-- 80%+ pokrycie testami
-- Type-safe z mypy strict mode
-- Skanowanie bezpieczeństwa z Bandit
-- Automatyczne aktualizacje zależności przez Dependabot
-
----
-
-Jeśli ten projekt jest przydatny, rozważ danie gwiazdki ⭐
 

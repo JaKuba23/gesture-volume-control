@@ -36,7 +36,7 @@ sudo mkdir -p /opt/motus
 cd /opt/motus
 
 # Clone repository
-git clone https://github.com/JaKuba23/motus.git .
+git clone https://github.com/JaKuba23/gesture-volume-control.git .
 
 # Create virtual environment
 python3 -m venv venv
@@ -337,7 +337,7 @@ cd /opt/
 tar -xzf motus-full-backup.tar.gz
 
 # Recreate virtual environment
-cd motus
+cd gesture-volume-control
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt

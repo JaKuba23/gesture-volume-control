@@ -10,22 +10,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2025-12-01
 
 ### Added
-- Initial production release
+- Initial release
 - Real-time hand tracking using MediaPipe Hands (21-point landmark detection)
 - Gesture-based volume control with 5-level precision (0-100%)
 - Thumbs-up toggle activation system
-- Adaptive smoothing algorithm for jitter reduction
-- Comprehensive test suite with 80%+ code coverage
-- Full type annotations with mypy strict mode compliance
-- CI/CD pipeline with GitHub Actions
-- Docker support for cross-platform development
-- Professional documentation (README, CONTRIBUTING, SECURITY)
-- Polish language documentation
+- Smoothing over recent frames to reduce jitter
+- Unit and integration test suite (pytest)
+- Type annotations checked with mypy
+- CI pipeline with GitHub Actions (lint, type check, tests, Docker build)
+- Docker image for headless/CI use
+- README, CONTRIBUTING, SECURITY docs (English + Polish)
 - Security scanning with Bandit and Safety
 - Automated dependency updates via Dependabot
-- Pre-commit hooks for code quality
+- Pre-commit hooks
 - EditorConfig for consistent code style
-- Comprehensive error handling and logging
 
 ### Technical
 - Python 3.10+ support
@@ -40,14 +38,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - mypy type checking
 
 ### Documentation
-- Professional README with badges
+- README with usage, architecture and dev setup
 - Contributing guidelines
 - Security policy
-- API documentation
 - Architecture documentation
 - Deployment guide
-- Polish translations
+- Polish translation
 
-[Unreleased]: https://github.com/JaKuba23/motus/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/JaKuba23/motus/releases/tag/v1.0.0
+[Unreleased]: https://github.com/JaKuba23/gesture-volume-control/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/JaKuba23/gesture-volume-control/releases/tag/v1.0.0
 

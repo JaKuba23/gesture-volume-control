@@ -17,10 +17,8 @@ We take security vulnerabilities seriously. If you discover a security issue, pl
 
 **DO NOT** open a public GitHub issue for security vulnerabilities.
 
-Instead, please report security issues by email to:
-
-**Email:** jakuba23@security.example.com  
-**Subject:** [SECURITY] Motus Vulnerability Report
+Instead, please report security issues privately via GitHub Security Advisories:
+**Security tab → Report a vulnerability**
 
 #### What to Include
 
@@ -116,7 +114,7 @@ Once a security issue is fixed:
 For security concerns, contact:
 
 - **Maintainer:** @JaKuba23
-- **Security Email:** jakuba23@security.example.com
+- **Report privately via:** GitHub Security Advisories (Security tab → Report a vulnerability)
 
 ---
 
