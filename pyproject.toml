@@ -27,7 +27,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "opencv-python==4.8.1.78",
+    "opencv-python==5.0.0.93",
     "mediapipe==0.10.13",
     "numpy==1.26.4",
 ]
